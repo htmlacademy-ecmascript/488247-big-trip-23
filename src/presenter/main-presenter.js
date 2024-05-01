@@ -4,6 +4,7 @@ import SortingView from '../view/sorting-view.js';
 import TripPointView from '../view/trip-point-view.js';
 import EditingFormView from '../view/editing-form-view.js';
 import { RenderPosition, render } from '../render.js';
+import { EVENT_POINTS_AMOUNT } from '../const.js';
 
 export default class MainPresenter {
   constructor() {
@@ -22,7 +23,7 @@ export default class MainPresenter {
     render(new SortingView(), this.tripEventsElement, RenderPosition.AFTERBEGIN);
     render(new EditingFormView(), this.eventsListElement);
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < EVENT_POINTS_AMOUNT; i++) {
       render(new TripPointView(), this.eventsListElement);
     }
   }
