@@ -1,7 +1,7 @@
 import TripInfoView from '../view/trip-info-view.js';
 import FiltersView from '../view/filters-view.js';
 
-import { RenderPosition, render } from '../render.js';
+import { RenderPosition, render } from '../framework/render.js';
 
 export default class HeaderPresenter {
   constructor({infoContainer, filterContainer}) {

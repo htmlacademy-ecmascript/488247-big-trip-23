@@ -1,4 +1,4 @@
-import { createElement } from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 import { humanizeEventDueDate, humanizeEventDueTime, getDuration } from '../utils.js';
 
 const createTripEventsPointTemplate = (event, point, offersType) => {
@@ -14,8 +14,7 @@ const createTripEventsPointTemplate = (event, point, offersType) => {
     const offersList = [...offers].map((offer) => `
       <li class="event__offer">
         <span class="event__offer-title">${offer.title}</span>
-        &plus;&euro;&nbsp;
-        <span class="event__offer-price">${offer.price}</span>
+        &plus;&euro;<span class="event__offer-price">${offer.price}</span>
       </li>`).join('');
 
     return `<ul class="event__selected-offers">${offersList}</ul>`;
@@ -54,26 +53,15 @@ const createTripEventsPointTemplate = (event, point, offersType) => {
   </li>`;
 };
 
-export default class TripPointView {
+export default class TripPointView extends AbstractView {
   constructor(index, point, offers) {
+    super();
     this.index = index;
     this.point = point;
     this.offers = offers;
   }
 
-  getTemplate() {
+  get template() {
     return createTripEventsPointTemplate(this.index, this.point, this.offers);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
   }
 }
