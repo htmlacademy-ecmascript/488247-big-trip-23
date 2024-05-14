@@ -4,13 +4,16 @@ import FiltersView from '../view/filters-view.js';
 import { RenderPosition, render } from '../framework/render.js';
 
 export default class HeaderPresenter {
+  #infoContainer = null;
+  #filterContainer = null;
+
   constructor({infoContainer, filterContainer}) {
-    this.tripInfoElement = infoContainer;
-    this.filtersElement = filterContainer;
+    this.#infoContainer = infoContainer;
+    this.#filterContainer = filterContainer;
   }
 
   init() {
-    render(new TripInfoView(), this.tripInfoElement, RenderPosition.AFTERBEGIN);
-    render(new FiltersView(), this.filtersElement);
+    render(new TripInfoView(), this.#infoContainer, RenderPosition.AFTERBEGIN);
+    render(new FiltersView(), this.#filterContainer);
   }
 }

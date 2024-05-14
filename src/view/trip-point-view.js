@@ -54,14 +54,18 @@ const createTripEventsPointTemplate = (event, point, offersType) => {
 };
 
 export default class TripPointView extends AbstractView {
-  constructor(index, point, offers) {
+  #event = null;
+  #point = null;
+  #offers = null;
+
+  constructor(event, point, offers) {
     super();
-    this.index = index;
-    this.point = point;
-    this.offers = offers;
+    this.#event = event;
+    this.#point = point;
+    this.#offers = offers;
   }
 
   get template() {
-    return createTripEventsPointTemplate(this.index, this.point, this.offers);
+    return createTripEventsPointTemplate(this.#event, this.#point, this.#offers);
   }
 }
