@@ -2,6 +2,7 @@ const TRIP_POINTS_COUNT = 3;
 
 const DATE_FORMAT = 'MMM D';
 const TIME_FORMAT = 'HH:mm';
+const DATE_TIME_FORMAT = 'DD/MM/YYYY H:mm';
 
 const SORT_TYPES = ['day', 'event', 'time', 'price', 'offers'];
 
@@ -30,6 +31,7 @@ export {
   TRIP_POINTS_COUNT,
   DATE_FORMAT,
   TIME_FORMAT,
+  DATE_TIME_FORMAT,
   SORT_TYPES,
   EVENT_TYPES,
   FILTER_TYPES,
