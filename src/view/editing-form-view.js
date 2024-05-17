@@ -2,48 +2,56 @@ import AbstractView from '../framework/view/abstract-view.js';
 import { humanizeEventDueDate } from '../utils.js';
 import { EVENT_TYPES, DATE_TIME_FORMAT } from '../const.js';
 
+const BLANC_EVENT = {
+  basePrice: 0,
+  dateFrom: null,
+  dateTo: null,
+  destination: '',
+  isFavorite: false,
+  offers: [],
+  type: '',
+};
+
+const getOffers = (offers) => {
+  if (!offers || offers.length === 0) {
+    return '';
+  }
+
+  const offersList = [...offers].map((offer) => `
+    <div class="event__offer-selector">
+      <input class="event__offer-checkbox  visually-hidden" id="${offer.id}" type="checkbox" name="${offer.title}" checked>
+        <label class="event__offer-label" for="${offer.id}">
+          <span class="event__offer-title">${offer.title}</span>
+          &plus;&euro;<span class="event__offer-price">${offer.price}</span>
+        </label>
+    </div>`
+  ).join('');
+
+  return `
+    <section class="event__section  event__section--offers">
+      <h3 class="event__section-title  event__section-title--offers">Offers</h3>
+      <div class="event__available-offers">
+        ${offersList}
+      </div>
+    </section>`;
+};
+
 const createEditFormTemplate = (event, destination, offers) => {
   const { type, basePrice, dateFrom, dateTo } = event;
 
-  const eventDestination = destination.getDestinationById(event.destination); // временное решение
+  const cityName = destination.name;
+  const destinationDescription = destination.description;
+
   const eventStart = humanizeEventDueDate(dateFrom, DATE_TIME_FORMAT);
   const eventEnd = humanizeEventDueDate(dateTo, DATE_TIME_FORMAT);
-  const eventOffers = offers.getOffersByType(event.type).offers;
-
-  const cityName = eventDestination.name; // временное решение
-  const destinationDescription = eventDestination.description;
-
-  const getOffers = () => {
-    if (!eventOffers || eventOffers.length === 0) {
-      return '';
-    }
-
-    const offersList = [...eventOffers].map((offer) => `
-      <div class="event__offer-selector">
-        <input class="event__offer-checkbox  visually-hidden" id="${offer.id}" type="checkbox" name="${offer.title}" checked>
-          <label class="event__offer-label" for="${offer.id}">
-            <span class="event__offer-title">${offer.title}</span>
-            &plus;&euro;<span class="event__offer-price">${offer.price}</span>
-          </label>
-      </div>`
-    ).join('');
-
-    return `
-      <section class="event__section  event__section--offers">
-        <h3 class="event__section-title  event__section-title--offers">Offers</h3>
-        <div class="event__available-offers">
-          ${offersList}
-        </div>
-      </section>`;
-  };
 
   const isChecked = (item) => item === type ? ' checked' : '';
 
   const selectEvent = () => EVENT_TYPES.map((item) => `
-      <div class="event__type-item">
-        <input id="event-type-${item}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${item}"${isChecked(item)}>
-        <label class="event__type-label  event__type-label--${item}" for="event-type-${item}-1">${item}</label>
-      </div>`).join('');
+    <div class="event__type-item">
+      <input id="event-type-${item}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${item}"${isChecked(item)}>
+      <label class="event__type-label  event__type-label--${item}" for="event-type-${item}-1">${item}</label>
+    </div>`).join('');
 
   return `<li class="trip-events__item">
     <form class="event event--edit" action="#" method="post">
@@ -97,7 +105,7 @@ const createEditFormTemplate = (event, destination, offers) => {
         </button>
       </header>
       <section class="event__details">
-        ${getOffers()}
+        ${getOffers(offers)}
         <section class="event__section  event__section--destination">
           <h3 class="event__section-title  event__section-title--destination">Destination</h3>
           <p class="event__destination-description">${destinationDescription}</p>
@@ -111,15 +119,40 @@ export default class EditingFormView extends AbstractView {
   #event = null;
   #destination = null;
   #offers = null;
+  #handleFormClose = null;
+  #handleFormtSubmit = null;
 
-  constructor({event, destination, offers}) {
+  constructor({
+    event = BLANC_EVENT,
+    destination,
+    offers,
+    onFormClose,
+    onFormSubmit,
+  }) {
     super();
     this.#event = event;
     this.#destination = destination;
     this.#offers = offers;
+    this.#handleFormClose = onFormClose;
+    this.#handleFormtSubmit = onFormSubmit;
+
+    this.element.querySelector('.event__rollup-btn')
+      .addEventListener('click', this.#formCloseHandler);
+    this.element.querySelector('form.event--edit')
+      .addEventListener('submit', this.#formSubmitHandler);
   }
 
   get template() {
     return createEditFormTemplate(this.#event, this.#destination, this.#offers);
   }
+
+  #formCloseHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleFormClose();
+  };
+
+  #formSubmitHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleFormtSubmit();
+  };
 }

@@ -34,4 +34,6 @@ const getRandomInteger = (min, max) => {
 
 const humanizeEventDueDate = (dueDate, format) => dueDate ? dayjs(dueDate).format(format) : '';
 
-export { getRandomArrayElement, getRandomInteger, humanizeEventDueDate, getDuration };
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export { getRandomArrayElement, getRandomInteger, humanizeEventDueDate, getDuration, isEscapeKey };

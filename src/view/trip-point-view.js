@@ -48,7 +48,7 @@ const createTripEventsPointTemplate = (event, destination, offers) => {
         <p class="event__duration">${eventDuration}</p>
       </div>
       <p class="event__price">
-        &euro;&nbsp;<span class="event__price-value">${basePrice}</span>
+        &euro;<span class="event__price-value">${basePrice}</span>
       </p>
       <h4 class="visually-hidden">Offers:</h4>
       ${getOffers()}
@@ -69,15 +69,25 @@ export default class TripPointView extends AbstractView {
   #event = null;
   #destination = null;
   #offers = null;
+  #handleEditClick = null;
 
-  constructor({event, destination, offers}) {
+  constructor({event, destination, offers, onEditClick}) {
     super();
     this.#event = event;
     this.#destination = destination;
     this.#offers = offers;
+    this.#handleEditClick = onEditClick;
+
+    this.element.querySelector('.event__rollup-btn')
+      .addEventListener('click', this.#editClickHandler);
   }
 
   get template() {
     return createTripEventsPointTemplate(this.#event, this.#destination, this.#offers);
   }
+
+  #editClickHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleEditClick();
+  };
 }
