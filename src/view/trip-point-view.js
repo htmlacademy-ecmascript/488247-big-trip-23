@@ -1,5 +1,5 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import { humanizeEventDueDate, getDuration } from '../utils.js';
+import { humanizeEventDueDate, getDuration } from '../utils/tripEvent.js';
 import { DATE_FORMAT, TIME_FORMAT } from '../const.js';
 
 const createTripEventsPointTemplate = (event, destination, offers) => {

@@ -1,12 +1,14 @@
 import SortingView from '../view/sorting-view.js';
 import TripPointView from '../view/trip-point-view.js';
 import EventListView from '../view/event-list-view.js';
+import EventListEmptyView from '../view/event-list-empty-view.js';
 import EditingFormView from '../view/editing-form-view.js';
 import { render, replace } from '../framework/render.js';
-import { isEscapeKey } from '../utils.js';
+import { isEscapeKey } from '../utils/common.js';
 
 export default class EventPresenter {
   #eventList = new EventListView();
+  #eventListEmpty = new EventListEmptyView();
   #container = null;
 
   #eventModel = null;
@@ -76,6 +78,10 @@ export default class EventPresenter {
   }
 
   #renderEventsList() {
+    if (!this.#eventModel.hasEvents()) {
+      render(this.#eventListEmpty, this.#container);
+    }
+
     if (this.#eventsList.length > 1) {
       render(new SortingView(), this.#container);
     }

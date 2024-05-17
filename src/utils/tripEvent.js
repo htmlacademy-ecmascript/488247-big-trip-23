@@ -24,16 +24,6 @@ const getDuration = (dateFrom, dateTo) => {
   return `${minutes}M`;
 };
 
-const getRandomArrayElement = (items) => items[Math.floor(Math.random() * items.length)];
-
-const getRandomInteger = (min, max) => {
-  min = Math.ceil(Math.min(min, max));
-  max = Math.floor(Math.max(min, max));
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
 const humanizeEventDueDate = (dueDate, format) => dueDate ? dayjs(dueDate).format(format) : '';
 
-const isEscapeKey = (evt) => evt.key === 'Escape';
-
-export { getRandomArrayElement, getRandomInteger, humanizeEventDueDate, getDuration, isEscapeKey };
+export { humanizeEventDueDate, getDuration };

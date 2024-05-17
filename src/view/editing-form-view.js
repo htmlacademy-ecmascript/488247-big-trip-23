@@ -1,5 +1,5 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import { humanizeEventDueDate } from '../utils.js';
+import { humanizeEventDueDate } from '../utils/tripEvent.js';
 import { EVENT_TYPES, DATE_TIME_FORMAT } from '../const.js';
 
 const BLANC_EVENT = {

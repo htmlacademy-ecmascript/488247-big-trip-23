@@ -1,4 +1,4 @@
-import { getRandomInteger } from '../utils.js';
+import { getRandomInteger } from '../utils/common.js';
 import { EVENT_TYPES, OfferPrice, OffersCount } from '../const.js';
 
 let offerId = 0;

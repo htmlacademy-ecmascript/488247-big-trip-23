@@ -1,4 +1,4 @@
-const TRIP_POINTS_COUNT = 3;
+const TRIP_POINTS_COUNT = 4;
 
 const DATE_FORMAT = 'MMM D';
 const TIME_FORMAT = 'HH:mm';
@@ -8,9 +8,25 @@ const SORT_TYPES = ['day', 'event', 'time', 'price', 'offers'];
 
 const FILTER_TYPES = ['everything', 'future', 'present', 'past'];
 
-const DESTINATIONS = ['Amsterdam', 'Geneva', 'Chamonix', 'Belgrad', 'Moscow'];
+const DESTINATIONS = [
+  'Amsterdam',
+  'Geneva',
+  'Chamonix',
+  'Belgrad',
+  'Moscow',
+];
 
-const EVENT_TYPES = ['taxi', 'bus', 'train', 'ship', 'drive', 'flight', 'check-in', 'sightseeing', 'restaurant'];
+const EVENT_TYPES = [
+  'taxi',
+  'bus',
+  'train',
+  'ship',
+  'drive',
+  'flight',
+  'check-in',
+  'sightseeing',
+  'restaurant',
+];
 
 const OfferPrice = {
   MIN: 5,
