@@ -1,4 +1,4 @@
-const TRIP_POINTS_COUNT = 4;
+const TRIP_POINTS_COUNT = 5;
 
 const DATE_FORMAT = 'MMM D';
 const TIME_FORMAT = 'HH:mm';
@@ -33,6 +33,20 @@ const OfferPrice = {
   MAX: 75,
 };
 
+const FilterType = {
+  EVERYTHING: 'everything',
+  FUTURE: 'future',
+  PRESENT: 'present',
+  PAST: 'past',
+};
+
+const EmptyResultMessages = {
+  [FilterType.EVERYTHING]: 'Click New Event to create your first point',
+  [FilterType.FUTURE]: 'There are no future events now',
+  [FilterType.PRESENT]: 'There are no present events now',
+  [FilterType.PAST]: 'There are no past events now',
+};
+
 const OffersCount = {
   MIN: 0,
   MAX: 6,
@@ -52,6 +66,8 @@ export {
   EVENT_TYPES,
   FILTER_TYPES,
   DESTINATIONS,
+  FilterType,
+  EmptyResultMessages,
   OfferPrice,
   OffersCount,
   BasePrice,
