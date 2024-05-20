@@ -11,7 +11,12 @@ const eventModel = new EventModel();
 const destinationModel = new DestinationsModel();
 const offersModel = new OffersModel('drive');
 
-const headerPresenter = new HeaderPresenter({infoContainer, filterContainer});
+const headerPresenter = new HeaderPresenter({
+  eventModel,
+  destinationModel,
+  infoContainer,
+  filterContainer,
+});
 const eventPresenter = new EventPresenter({
   container: eventsContainer,
   eventModel,

@@ -1,11 +1,12 @@
-import { getRandomArrayElement, getRandomInteger } from '../utils.js';
+import { getRandomArrayElement, getRandomInteger } from '../utils/common.js';
 import { destinations } from './destination.js';
 import { offers } from './offers.js';
 import { EVENT_TYPES, BasePrice } from '../const.js';
+import dayjs from 'dayjs';
 
 let eventId = 0;
-let monthNumber = 4;
-let dayNumber = 5;
+const dateFrom = dayjs().subtract(2, 'h').subtract(1, 'd').toISOString();
+const dateTo = dayjs().add(1, 'h').add(15, 'minute').toISOString();
 
 const getRandomBoolean = () => getRandomArrayElement([true, false]);
 
@@ -17,8 +18,8 @@ const createEvent = () => {
   return {
     id: `point-id-${eventId++}`,
     basePrice: getRandomInteger(BasePrice.MIN, BasePrice.MAX),
-    dateFrom: `2019-0${monthNumber}-0${dayNumber}T12:50:56.845Z`,
-    dateTo: `2019-0${monthNumber++}-0${dayNumber--}T13:20:13.375Z`,
+    dateFrom,
+    dateTo,
     destination: getRandomDestination().id,
     isFavorite: getRandomBoolean(),
     offers: offersType.map((item) => item.id),

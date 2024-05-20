@@ -1,6 +1,5 @@
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
-import { DATE_FORMAT, TIME_FORMAT } from './const';
 dayjs.extend(duration);
 
 const getDuration = (dateFrom, dateTo) => {
@@ -25,15 +24,6 @@ const getDuration = (dateFrom, dateTo) => {
   return `${minutes}M`;
 };
 
-const getRandomArrayElement = (items) => items[Math.floor(Math.random() * items.length)];
+const humanizeEventDueDate = (dueDate, format) => dueDate ? dayjs(dueDate).format(format) : '';
 
-const getRandomInteger = (min, max) => {
-  min = Math.ceil(Math.min(min, max));
-  max = Math.floor(Math.max(min, max));
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
-const humanizeEventDueDate = (dueDate) => dueDate ? dayjs(dueDate).format(DATE_FORMAT) : '';
-const humanizeEventDueTime = (dueDate) => dueDate ? dayjs(dueDate).format(TIME_FORMAT) : '';
-
-export { getRandomArrayElement, getRandomInteger, humanizeEventDueDate, humanizeEventDueTime, getDuration };
+export { humanizeEventDueDate, getDuration };
