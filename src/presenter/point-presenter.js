@@ -1,6 +1,6 @@
 import PointView from '../view/point-view';
 import PointEditView from '../view/point-edit-view';
-import { render, replace } from '../framework/render';
+import { render, replace, remove } from '../framework/render';
 import { isEscapeKey } from '../utils/common';
 
 export default class PointPresenter {
@@ -20,6 +20,9 @@ export default class PointPresenter {
   init(point) {
     this.#point = point;
 
+    const prevPointComponent = this.#pointComponent;
+    const prevPointEditComponent = this.#pointEditComponent;
+
     this.#pointComponent = new PointView({
       point: this.#point,
       destination: this.#pointsModel.getDestinationById(point.destination),
@@ -34,7 +37,26 @@ export default class PointPresenter {
       onFormClose: this.#handleFormClose,
     });
 
-    render(this.#pointComponent, this.#pointListContainer);
+    if (prevPointComponent === null || prevPointEditComponent === null) {
+      render(this.#pointComponent, this.#pointListContainer);
+      return;
+    }
+
+    if (this.#pointListContainer.contains(prevPointComponent.element)) {
+      replace(this.#pointComponent, prevPointComponent);
+    }
+
+    if (this.#pointListContainer.contains(prevPointEditComponent.element)) {
+      replace(this.#pointEditComponent, prevPointEditComponent);
+    }
+
+    remove(prevPointComponent);
+    remove(prevPointEditComponent);
+  }
+
+  destroy() {
+    remove(this.#pointComponent);
+    remove(this.#pointEditComponent);
   }
 
   #replacePointToForm() {
