@@ -1,5 +1,6 @@
 import { getRandomInteger } from '../utils/common';
 import { POINT_TYPES } from '../const';
+import { nanoid } from 'nanoid';
 
 const OfferPrice = {
   MIN: 5,
@@ -11,16 +12,16 @@ const OffersCount = {
   MAX: 4,
 };
 
-let offerId = 0;
+let offerCount = 0;
 
 const createOffer = (type) => ({
-  id: `${type}-offer-id-${offerId++}`,
-  title: `${type}-offer#${offerId}`,
+  id: nanoid(),
+  title: `${type}-offer#${offerCount++}`,
   price: getRandomInteger(OfferPrice.MIN, OfferPrice.MAX),
 });
 
 const createOffersType = (type) => {
-  offerId = 0;
+  offerCount = 0;
   return {
     type,
     offers: Array.from(

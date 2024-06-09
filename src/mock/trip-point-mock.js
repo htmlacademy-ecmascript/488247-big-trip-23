@@ -3,13 +3,12 @@ import { destinations } from './destinations-mock';
 import { offersType } from './offers-mock';
 import { POINT_TYPES } from '../const';
 import dayjs from 'dayjs';
+import { nanoid } from 'nanoid';
 
 const BasePrice = {
   MIN: 20,
   MAX: 200,
 };
-
-let pointId = 0;
 
 const getRandomBoolean = () => Math.random() < 0.5;
 
@@ -22,7 +21,7 @@ const createPoint = () => {
   const dateTo = dayjs(dateFrom).add(getRandomInteger(0, 5), 'd').add(30, 'm').toISOString();
 
   return {
-    id: `point-id-${pointId++}`,
+    id: nanoid(),
     type,
     dateFrom,
     dateTo,

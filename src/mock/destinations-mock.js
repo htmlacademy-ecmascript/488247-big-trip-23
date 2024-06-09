@@ -1,9 +1,8 @@
 import { DESTINATIONS } from '../const';
-
-let destinationId = 0;
+import { nanoid } from 'nanoid';
 
 const createDestination = (city) => ({
-  id: `destination-id-${destinationId++}`,
+  id: nanoid(),
   description: `${city}, is a beautiful city, a true europe pearl, with crowded streets.`,
   name: `${city}`,
   pictures: [
