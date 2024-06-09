@@ -2,7 +2,7 @@ import { createPoint } from '../mock/trip-point-mock';
 import { destinations } from '../mock/destinations-mock';
 import { offersType } from '../mock/offers-mock';
 
-const POINT_COUNT = 3;
+const POINT_COUNT = 7;
 
 export default class PointsModel {
   #points = Array.from({length: POINT_COUNT}, createPoint);
