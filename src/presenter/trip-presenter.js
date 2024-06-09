@@ -4,6 +4,7 @@ import PointListView from '../view/point-list-view';
 import PointPresenter from './point-presenter';
 import NoPointView from '../view/no-point-view';
 import { render, RenderPosition } from '../framework/render';
+import { updateItem } from '../utils/common';
 
 export default class TripPresenter {
   #pointListComponent = new PointListView();
@@ -27,6 +28,11 @@ export default class TripPresenter {
 
     this.#renderTripPoints();
   }
+
+  #handlePointChange = (updatedPoint) => {
+    this.#tripPoints = updateItem(this.#tripPoints, updatedPoint);
+    this.#pointPresenters.get(updatedPoint.id).init(updatedPoint);
+  };
 
   #renderSort() {
     render(this.#sortComponent, this.#eventContainer);
