@@ -1,36 +1,26 @@
-const TRIP_POINTS_COUNT = 5;
+const DEFAULT_POINT_TYPE = 'taxi';
 
-const DATE_FORMAT = 'MMM D';
-const TIME_FORMAT = 'HH:mm';
-const DATE_TIME_FORMAT = 'DD/MM/YYYY H:mm';
+const POINT_TYPES = [
+  'taxi', 'bus', 'train', 'ship', 'drive', 'flight', 'check-in', 'sightseeing', 'restaurant'
+];
 
-const SORT_TYPES = ['day', 'event', 'time', 'price', 'offers'];
+const DESTINATIONS = [
+  'Amsterdam', 'Geneva', 'Chamonix', 'Belgrad', 'Moscow'
+];
 
 const FILTER_TYPES = ['everything', 'future', 'present', 'past'];
 
-const DESTINATIONS = [
-  'Amsterdam',
-  'Geneva',
-  'Chamonix',
-  'Belgrad',
-  'Moscow',
-];
+const SORT_TYPES = ['day', 'event', 'time', 'price', 'offers'];
 
-const EVENT_TYPES = [
-  'taxi',
-  'bus',
-  'train',
-  'ship',
-  'drive',
-  'flight',
-  'check-in',
-  'sightseeing',
-  'restaurant',
-];
-
-const OfferPrice = {
-  MIN: 5,
-  MAX: 75,
+const DateFormats = {
+  DATE_MONTH: 'MMM D',
+  DATE: 'YYYY-MM-DD',
+  TIME: 'HH:mm',
+  DATE_TIME_SYSTEM: 'YYYY-MM-DDTHH:mm',
+  DATE_TIME: 'YY/MM/DD HH:mm',
+  DAY: 'DD[d] HH[h] mm[m]',
+  HOURS: 'HH[h] mm[m]',
+  MINUTES: 'mm[m]'
 };
 
 const FilterType = {
@@ -40,35 +30,22 @@ const FilterType = {
   PAST: 'past',
 };
 
-const EmptyResultMessages = {
-  [FilterType.EVERYTHING]: 'Click New Event to create your first point',
-  [FilterType.FUTURE]: 'There are no future events now',
-  [FilterType.PRESENT]: 'There are no present events now',
-  [FilterType.PAST]: 'There are no past events now',
-};
-
-const OffersCount = {
-  MIN: 0,
-  MAX: 6,
-};
-
-const BasePrice = {
-  MIN: 20,
-  MAX: 200,
+const BLANC_EVENT_POINT = {
+  type: DEFAULT_POINT_TYPE,
+  dateFrom: new Date().toISOString(),
+  dateTo: null,
+  destination: null,
+  price: 0,
+  offers: [],
+  isFavorite: false,
 };
 
 export {
-  TRIP_POINTS_COUNT,
-  DATE_FORMAT,
-  TIME_FORMAT,
-  DATE_TIME_FORMAT,
-  SORT_TYPES,
-  EVENT_TYPES,
-  FILTER_TYPES,
+  POINT_TYPES,
   DESTINATIONS,
+  FILTER_TYPES,
+  SORT_TYPES,
+  BLANC_EVENT_POINT,
+  DateFormats,
   FilterType,
-  EmptyResultMessages,
-  OfferPrice,
-  OffersCount,
-  BasePrice,
 };
