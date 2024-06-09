@@ -5,6 +5,7 @@ import { isEscapeKey } from '../utils/common';
 
 export default class PointPresenter {
   #pointListContainer = null;
+  #handleDataChange = null;
 
   #pointComponent = null;
   #pointEditComponent = null;
@@ -12,9 +13,10 @@ export default class PointPresenter {
 
   #point = null;
 
-  constructor({pointListContainer, pointsModel}) {
+  constructor({pointListContainer, pointsModel, onDataChange }) {
     this.#pointListContainer = pointListContainer;
     this.#pointsModel = pointsModel;
+    this.#handleDataChange = onDataChange;
   }
 
   init(point) {
@@ -28,6 +30,7 @@ export default class PointPresenter {
       destination: this.#pointsModel.getDestinationById(point.destination),
       offers: this.#pointsModel.getOffersByType(point.type),
       onEditClick: this.#handleEditClick,
+      onFavoriteClick: this.#handleFavoriteClick,
     });
     this.#pointEditComponent = new PointEditView({
       point: this.#point,
@@ -81,7 +84,12 @@ export default class PointPresenter {
     this.#replacePointToForm();
   };
 
-  #handleFormSubmit = () => {
+  #handleFavoriteClick = () => {
+    this.#handleDataChange({...this.#point, isFavorite: !this.#point.isFavorite});
+  };
+
+  #handleFormSubmit = (point) => {
+    this.#handleDataChange(point);
     this.#replaceFormToPoint();
   };
 
