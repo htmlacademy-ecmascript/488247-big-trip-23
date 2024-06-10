@@ -1,39 +1,22 @@
-import HeaderPresenter from './presenter/info-presenter.js';
-import EventPresenter from './presenter/events-presenter.js';
-import EventModel from './model/event-model.js';
-import DestinationsModel from './model/destinations-model.js';
-import OffersModel from './model/offers-model.js';
-import FiltersView from './view/filters-view.js';
-import { render } from './framework/render.js';
-import { generateFilter } from './mock/filter.js';
-import EmptyEventsListView from './view/empty-events-list-view.js';
+import { render } from './framework/render';
+import { generateFilter } from './mock/filter';
+import FilterView from './view/filter-view';
+import TripPresenter from './presenter/trip-presenter';
+import PointsModel from './model/points-model';
 
-const infoContainer = document.querySelector('.trip-main');
-const filterContainer = document.querySelector('.trip-controls__filters');
-const eventsContainer = document.querySelector('.trip-events');
-const eventModel = new EventModel();
-const destinationModel = new DestinationsModel();
-const offersModel = new OffersModel('drive');
+const headerMainElement = document.querySelector('.trip-main');
+const filtersElement = headerMainElement.querySelector('.trip-controls__filters');
+const tripEventsElement = document.querySelector('.trip-events');
 
-const headerPresenter = new HeaderPresenter({
-  eventModel,
-  destinationModel,
-  infoContainer,
-  filterContainer,
-});
-const eventPresenter = new EventPresenter({
-  container: eventsContainer,
-  eventModel,
-  destinationModel,
-  offersModel,
+const pointsModel = new PointsModel();
+const eventPresenter = new TripPresenter({
+  infoContainer: headerMainElement,
+  eventContainer: tripEventsElement,
+  pointsModel,
 });
 
-const filters = generateFilter(eventModel.events);
+const filters = generateFilter(pointsModel.points);
 
-if (!eventModel.hasEvents()) {
-  render(new EmptyEventsListView({filters}), eventsContainer);
-}
-render(new FiltersView({filters}), filterContainer);
+render(new FilterView({filters}), filtersElement);
 
-headerPresenter.init();
 eventPresenter.init();

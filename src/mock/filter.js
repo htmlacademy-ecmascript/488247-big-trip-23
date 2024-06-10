@@ -1,4 +1,4 @@
-import { filter } from '../utils/tripEvent.js';
+import { filter } from '../utils/point';
 
 const generateFilter = (events) =>
   Object.entries(filter).map(
